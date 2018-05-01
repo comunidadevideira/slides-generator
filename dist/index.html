@@ -38,6 +38,10 @@ O véu se rasgou
 Sua luz em mim brilhou
 Sua glória me cobriu"></textarea>
         <br>
+        <input id="is-text-uppercase" type="checkbox"> Texto em maiúsculo
+        <br>
+        Tamanho da fonte: <input id="font-size" type="number" value="40"> 
+        <br>
         <button onclick="generateSlide()">GERAR SLIDE</button>
         <br>
         <br>
@@ -80,7 +84,7 @@ Sua glória me cobriu"></textarea>
                 return slidesText;
             }
 
-            function slideFromLyricsArray(slidesText) {
+            function slideFromLyricsArray(slidesText, fontSize = 40, isTextUpperCase = false) {
                 var pptx = new PptxGenJS();
            
                 // Create master slide
@@ -92,7 +96,7 @@ Sua glória me cobriu"></textarea>
                 // Create each slide
                 slidesText.forEach(function(slideText) {
                     var slide = pptx.addNewSlide('MASTER_SLIDE');
-                    slide.addText(slideText, { x:'5%', y:'10%', w: '90%', h: '70%', fontSize:40, color:'ffff', fontFace: 'Exo 2', bold: true, align: 'center' });
+                    slide.addText((isTextUpperCase) ? slideText.toUpperCase() : slideText , { x:'5%', y:'10%', w: '90%', h: '70%', fontSize: fontSize, color:'ffff', fontFace: 'Exo 2', bold: true, align: 'center' });
                 });
 
                 return pptx;
@@ -101,9 +105,17 @@ Sua glória me cobriu"></textarea>
             /* Generate the slide */
             function generateSlide() {            
                 const lyric = document.getElementById('lyric-textare').value;
+                const shoudlUpperCaseText = document.getElementById('is-text-uppercase').checked;
+                const fontSize = document.getElementById('font-size').value;
+
+                if (lyric == '') {
+                    alert('Você deve adicinar o texto da música!');
+                    
+                    return;
+                }
 
                 const slidesText = parseLyric(lyric);
-                const pptx = slideFromLyricsArray(slidesText);
+                const pptx = slideFromLyricsArray(slidesText, fontSize, shoudlUpperCaseText);
 
                 pptx.save('Sample Presentation');
             }
