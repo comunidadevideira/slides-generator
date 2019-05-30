@@ -96,7 +96,7 @@ Sua glória me cobriu"></textarea>
                 // Create each slide
                 slidesText.forEach(function(slideText) {
                     var slide = pptx.addNewSlide('MASTER_SLIDE');
-                    slide.addText((isTextUpperCase) ? slideText.toUpperCase() : slideText , { x:'5%', y:'10%', w: '90%', h: '70%', fontSize: fontSize, color:'ffffff', fontFace: 'Exo 2', bold: true, align: 'center', valign: 'top', autofit: true });
+                    slide.addText((isTextUpperCase) ? slideText.toUpperCase() : slideText , { x:'5%', y:'10%', w: '90%', h: '70%', fontSize: fontSize, color:'ffff00', fontFace: 'Exo 2', bold: true, align: 'center', valign: 'top', autofit: true });
                 });
 
                 return pptx;
